@@ -36,4 +36,8 @@ class MainViewModel(private val mainRepository: MainRepository,
     fun saveFirstTimePermissionRequested() {
         mainRepository.saveFirstTimePermissionRequested()
     }
+
+    fun setFavorite(place: Place) {
+        mainRepository.setFavorite(place)
+    }
 }

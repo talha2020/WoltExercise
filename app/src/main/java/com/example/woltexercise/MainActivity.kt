@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                         onFavoriteClicked = { position ->
                             adapter.getItem(position).apply { favourite = !favourite }
                             adapter.notifyItemChanged(position)
+                            viewModel.setFavorite(adapter.getItem(position))
                         })
                 }
             }
