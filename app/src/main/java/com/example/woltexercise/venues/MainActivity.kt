@@ -83,6 +83,9 @@ class MainActivity : AppCompatActivity() {
     *  with the assignment.
     * */
 
+    /* Also choose a very aggressive strategy here for asking permission. Assumed the scenario where
+    *  the app cannot work without permission. Depending upon the use case we can handle it differently.
+    * */
     private fun invokeLocationAction() {
         when {
             isPermissionsGranted() -> getVenues()
