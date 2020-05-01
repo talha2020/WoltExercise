@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 is UIResponse.Error -> {
                     progressBar.setGone()
+                    response.error.message?.let { showError(it) }
                 }
             }
         })
