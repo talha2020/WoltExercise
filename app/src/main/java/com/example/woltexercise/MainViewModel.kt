@@ -8,7 +8,7 @@ class MainViewModel(private val mainRepository: MainRepository): ViewModel() {
 
     fun getVenues(){
         viewModelScope.launch {
-            mainRepository.getVenues(60.170187, 24.930599)
+            val venues = mainRepository.getVenues(60.170187, 24.930599)
         }
     }
 }
