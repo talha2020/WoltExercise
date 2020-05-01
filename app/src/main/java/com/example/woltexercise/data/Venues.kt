@@ -13,6 +13,7 @@ data class Results (
     @SerializedName("country") val country : String,
     @SerializedName("currency") val currency : String,
     @SerializedName("description") val description : List<Description>,
+    @SerializedName("short_description") val shortDescription : List<ShortDescription>,
     @SerializedName("favourite") val favourite : Boolean,
     @SerializedName("id") val id : Id,
     @SerializedName("listimage") val listImage : String,
@@ -29,6 +30,11 @@ data class Description (
 )
 
 data class Name (
+    @SerializedName("lang") val lang : String,
+    @SerializedName("value") val value : String
+)
+
+data class ShortDescription (
     @SerializedName("lang") val lang : String,
     @SerializedName("value") val value : String
 )

@@ -7,11 +7,18 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.woltexercise.data.Results
+import com.example.woltexercise.data.UIResponse
+import com.example.woltexercise.data.Venues
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,9 +38,33 @@ class MainActivity : AppCompatActivity() {
     private fun getVenues(){
         viewModel.getVenues().observe(this, Observer { response ->
             when(response) {
-
+                is UIResponse.Loading -> {
+                    progressBar.show()
+                }
+                is UIResponse.Data<Venues> -> {
+                    progressBar.setGone()
+                    showVenues(response.data)
+                }
+                is UIResponse.Error -> {
+                    progressBar.setGone()
+                }
             }
         })
+    }
+
+    private fun showVenues(venues: Venues){
+        //TODO: Refresh the adapter here instead of making new one every time
+        val places = venues.results
+        val adapter = object : GenericAdapter<Results>(places) {
+            override fun getLayoutId(position: Int, obj: Results): Int {
+                return R.layout.venue_list_item
+            }
+            override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+                return VenuesViewHolder(view)
+            }
+        }
+        venuesRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        venuesRv.adapter = adapter
     }
 
     private fun invokeLocationAction() {

@@ -1,23 +1,31 @@
 package com.example.woltexercise
 
 import androidx.lifecycle.*
-import com.example.woltexercise.data.ApiResponse
+import com.example.woltexercise.data.ApiError
+import com.example.woltexercise.data.UIResponse
 import com.example.woltexercise.data.Venues
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val mainRepository: MainRepository,
                     private val locationLiveData: LocationLiveData): ViewModel() {
 
-    private val venuesMutableLiveData = MutableLiveData<ApiResponse<Venues>>()
+    private val venuesMutableLiveData = MutableLiveData<UIResponse<Venues>>()
 
-    fun getVenues(): LiveData<ApiResponse<Venues>> {
+    fun getVenues(): LiveData<UIResponse<Venues>> {
         return Transformations.switchMap(locationLiveData, ::locationVenueTransformer )
     }
 
-    private fun locationVenueTransformer(location: LocationModel): LiveData<ApiResponse<Venues>>{
+    private fun locationVenueTransformer(location: LocationModel): LiveData<UIResponse<Venues>>{
         viewModelScope.launch {
-            val venues = mainRepository.getVenues(location.latitude, location.longitude)
-            venuesMutableLiveData.value = venues
+            venuesMutableLiveData.value = UIResponse.Loading
+            val response = mainRepository.getVenues(location.latitude, location.longitude)
+            response.error?.also {
+                venuesMutableLiveData.value = UIResponse.Error(ApiError(code = it.code, message = it.message))
+            }?: response.data?.let {
+                //TODO: Have to return first 15 results here
+                venuesMutableLiveData.value = UIResponse.Data(it)
+            }
+
         }
         return venuesMutableLiveData
     }
