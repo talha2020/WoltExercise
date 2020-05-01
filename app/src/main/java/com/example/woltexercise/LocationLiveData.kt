@@ -3,6 +3,8 @@ package com.example.woltexercise
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -13,22 +15,35 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
 
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
+    private val handler = Handler(Looper.getMainLooper())
+    private var currentIndex = 0
+
+    private val updateLocationTask = object : Runnable {
+        override fun run() {
+            value = locationList[currentIndex]
+            currentIndex = (currentIndex + 1).rem(locationList.size)
+            handler.postDelayed(this, 10000)
+        }
+    }
+
     override fun onInactive() {
         super.onInactive()
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        if (BuildConfig.DEBUG){
+            handler.removeCallbacks(updateLocationTask)
+        } else{
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+        }
     }
 
 
     @SuppressLint("MissingPermission")
     override fun onActive() {
         super.onActive()
-/*        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
-                location?.also {
-                    setLocationData(it)
-                }
-            }*/
-        startLocationUpdates()
+        if (BuildConfig.DEBUG){
+            handler.post(updateLocationTask)
+        } else{
+            startLocationUpdates()
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -66,6 +81,20 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
 }
 
 data class LocationModel(
-    val longitude: Double,
-    val latitude: Double
+    val latitude: Double,
+    val longitude: Double
+)
+
+// TODO: Maybe think about moving it somewhere else
+private val locationList = listOf(
+    LocationModel(60.170187,24.930599),
+    LocationModel(60.169418, 24.931618),
+    LocationModel(60.169818, 24.932906),
+    LocationModel(60.170005, 24.935105),
+    LocationModel(60.169108, 24.936210),
+    LocationModel(60.168355, 24.934869),
+    LocationModel(60.167560, 24.932562),
+    LocationModel(60.168254, 24.931532),
+    LocationModel(60.169012, 24.930341),
+    LocationModel(60.170085, 24.929569)
 )
