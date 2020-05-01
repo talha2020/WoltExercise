@@ -14,16 +14,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.woltexercise.data.Results
+import com.example.woltexercise.data.Place
 import com.example.woltexercise.data.UIResponse
-import com.example.woltexercise.data.Venues
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var adapter: GenericAdapter<Results>
+    private lateinit var adapter: GenericAdapter<Place>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 is UIResponse.Loading -> {
                     progressBar.show()
                 }
-                is UIResponse.Data<Venues> -> {
+                is UIResponse.Data<List<Place>> -> {
                     progressBar.setGone()
                     showVenues(response.data)
                 }
@@ -53,20 +52,18 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun showVenues(venues: Venues){
-        val places = venues.results
-
+    private fun showVenues(places: List<Place>){
         if (::adapter.isInitialized){
             adapter.setItems(places)
         } else {
-            adapter = object : GenericAdapter<Results>(places) {
-                override fun getLayoutId(position: Int, obj: Results): Int {
+            adapter = object : GenericAdapter<Place>(places) {
+                override fun getLayoutId(position: Int, obj: Place): Int {
                     return R.layout.venue_list_item
                 }
                 override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
                     return VenuesViewHolder(view,
                         onFavoriteClicked = { position ->
-                            adapter.getItem(position).favourite = !adapter.getItem(position).favourite
+                            adapter.getItem(position).apply { favourite = !favourite }
                             adapter.notifyItemChanged(position)
                         })
                 }

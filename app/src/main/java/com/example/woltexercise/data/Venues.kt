@@ -3,11 +3,11 @@ package com.example.woltexercise.data
 import com.google.gson.annotations.SerializedName
 
 data class Venues (
-    @SerializedName("results") val results : List<Results>,
+    @SerializedName("results") val places : List<Place>,
     @SerializedName("status") val status : String
 )
 
-data class Results (
+data class Place (
     @SerializedName("address") val address : String,
     @SerializedName("city") val city : String,
     @SerializedName("country") val country : String,
