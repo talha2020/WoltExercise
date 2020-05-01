@@ -1,7 +1,9 @@
 package com.example.woltexercise.api
 
 import com.example.woltexercise.BuildConfig
-import com.example.woltexercise.data.VenuesResponse
+import com.example.woltexercise.data.ApiError
+import com.example.woltexercise.data.ApiResponse
+import com.example.woltexercise.data.Venues
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.features.json.GsonSerializer
@@ -30,17 +32,17 @@ class ApiClient {
     suspend fun getVenues(
         lat: Double,
         lng: Double
-    ){
+    ): ApiResponse<Venues>{
         return try {
             val url = ApiEndPoints.GET_VENUE
-            val res = client.get<VenuesResponse>(url) {
+            val res = client.get<Venues>(url) {
                 parameter("lat", lat)
                 parameter("lon", lng)
             }
-            //ApiResponse(data = res)
+            ApiResponse(data = res)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            //ApiResponse(error = ApiError(message = ex.message))
+            ApiResponse(error = ApiError(message = ex.message))
         }
     }
 }
