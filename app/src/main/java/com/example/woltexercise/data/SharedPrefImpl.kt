@@ -29,6 +29,8 @@ class SharedPrefImpl (context: Context): SharedPref {
         saveFavorites(list)
     }
 
+    // The list of favorites can grow over time so it is suitable to save them in a DB rather than preferences.
+    // Used preferences to keep it simple here.
     private fun saveFavorites(favoritesList: List<String>){
         preferences.edit().putString("favorites", Gson().toJson(favoritesList)).apply()
     }

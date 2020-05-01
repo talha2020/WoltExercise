@@ -10,7 +10,9 @@
         android:id="@+id/venueIv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="@dimen/default_padding"/>
+        android:scaleType="centerCrop"
+        android:layout_margin="@dimen/default_padding"
+        android:importantForAccessibility="no"/>
 
     <TextView
         android:id="@+id/venueNameTv"
@@ -40,7 +42,8 @@
         android:layout_height="24dp"
         tools:src="@drawable/ic_favorite_border"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/default_padding"/>
+        android:layout_margin="@dimen/default_padding"
+        android:importantForAccessibility="no"/>
 
     <View
         android:layout_width="match_parent"

@@ -77,6 +77,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /* This is a bit of over engineering for the assignment as handling location permission was not really needed.
+    *  But i wanted to play around with permission handling so implemented it here to mimic the real world scenario.
+    *  Even if we are asking for permissions here, for the purpose of this assignment, we are using a mock array provided
+    *  with the assignment.
+    * */
+
     private fun invokeLocationAction() {
         when {
             isPermissionsGranted() -> getVenues()

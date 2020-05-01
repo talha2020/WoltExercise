@@ -10,8 +10,6 @@ class MainViewModel(private val mainRepository: MainRepository,
                     private val locationLiveData: LocationLiveData
 ): ViewModel() {
 
-    //private val venuesMutableLiveData = MutableLiveData<UIResponse<List<Place>>>()
-
     fun getVenues(): LiveData<UIResponse<List<Place>>> {
         return Transformations.switchMap(locationLiveData, ::locationVenueTransformer )
     }

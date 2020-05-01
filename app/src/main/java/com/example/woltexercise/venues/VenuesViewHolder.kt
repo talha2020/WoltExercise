@@ -20,7 +20,8 @@ class VenuesViewHolder(itemView: View,
 
     override fun bind(data: Place) {
         Picasso.get().load(data.listImage).into(venueIv)
-        //TODO: put check for array elements here
+
+        //Assuming that their will always be at-least one element in the arrays here
         venueNameTv.text = data.name[0].value
         venueDescriptionTv.text = data.shortDescription[0].value
 

@@ -39,6 +39,7 @@ class ApiClient {
                 parameter("lat", lat)
                 parameter("lon", lng)
             }
+            // Not handling all the error cases here for the purpose of this assignment.
             ApiResponse(data = res)
         } catch (ex: Exception) {
             ex.printStackTrace()

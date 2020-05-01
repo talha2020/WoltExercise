@@ -86,7 +86,6 @@ data class LocationModel(
     val longitude: Double
 )
 
-// TODO: Maybe think about moving it somewhere else
 private val locationList = listOf(
     LocationModel(60.170187, 24.930599),
     LocationModel(60.169418, 24.931618),
