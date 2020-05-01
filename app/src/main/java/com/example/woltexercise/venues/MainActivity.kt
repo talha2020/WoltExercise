@@ -1,4 +1,4 @@
-package com.example.woltexercise
+package com.example.woltexercise.venues
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.woltexercise.*
 import com.example.woltexercise.data.Place
 import com.example.woltexercise.data.UIResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title = getString(R.string.venues_nearby)
 
         viewModel = ViewModelProvider(this,
             MainViewModelFactory()

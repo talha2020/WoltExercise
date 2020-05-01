@@ -1,15 +1,17 @@
-package com.example.woltexercise
+package com.example.woltexercise.venues
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.woltexercise.GenericAdapter
+import com.example.woltexercise.R
 import com.example.woltexercise.data.Place
 import com.squareup.picasso.Picasso
 
 class VenuesViewHolder(itemView: View,
                        private val onFavoriteClicked: (Int) -> Unit): RecyclerView.ViewHolder(itemView),
-    GenericAdapter.Binder<Place>  {
+    GenericAdapter.Binder<Place> {
 
     private var venueIv = itemView.findViewById<ImageView>(R.id.venueIv)
     private var favoriteIv = itemView.findViewById<ImageView>(R.id.favoriteIv)

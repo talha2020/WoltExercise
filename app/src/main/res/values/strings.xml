@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">WoltExercise</string>
+    <string name="venues_nearby">Venues nearby</string>
     <string name="location_permission_required_message">Location permission is required to show the Venues. Grant permission in app settings.</string>
     <string name="grant_permission">App settings</string>
 </resources>

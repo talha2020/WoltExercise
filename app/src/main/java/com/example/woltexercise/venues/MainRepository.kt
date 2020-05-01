@@ -1,4 +1,4 @@
-package com.example.woltexercise
+package com.example.woltexercise.venues
 
 import com.example.woltexercise.api.ApiClient
 import com.example.woltexercise.data.ApiResponse

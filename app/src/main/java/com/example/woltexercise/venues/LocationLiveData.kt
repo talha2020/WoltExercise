@@ -1,4 +1,4 @@
-package com.example.woltexercise
+package com.example.woltexercise.venues
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,6 +6,7 @@ import android.location.Location
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
+import com.example.woltexercise.BuildConfig
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -87,7 +88,7 @@ data class LocationModel(
 
 // TODO: Maybe think about moving it somewhere else
 private val locationList = listOf(
-    LocationModel(60.170187,24.930599),
+    LocationModel(60.170187, 24.930599),
     LocationModel(60.169418, 24.931618),
     LocationModel(60.169818, 24.932906),
     LocationModel(60.170005, 24.935105),
