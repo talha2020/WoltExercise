@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="80dp"
+    android:padding="@dimen/default_padding"
     android:gravity="center_vertical">
 
     <ImageView
         android:id="@+id/venueIv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@color/colorPrimary"
         android:layout_margin="@dimen/default_padding"/>
 
     <TextView
@@ -19,7 +19,9 @@
         tools:text="Burger Palace"
         android:textStyle="bold"
         android:layout_toEndOf="@+id/venueIv"
-        android:padding="@dimen/default_half_padding"/>
+        android:layout_alignTop="@+id/venueIv"
+        android:layout_toStartOf="@+id/favoriteIv"
+        android:paddingStart="@dimen/default_half_padding"/>
 
     <TextView
         android:id="@+id/venueDescriptionTv"
@@ -28,6 +30,22 @@
         tools:text="Beef + Bacon + Cheese = Love"
         android:layout_toEndOf="@+id/venueIv"
         android:layout_below="@+id/venueNameTv"
-        android:padding="@dimen/default_half_padding"/>
+        android:layout_toStartOf="@+id/favoriteIv"
+        android:paddingStart="@dimen/default_half_padding"/>
 
+
+    <ImageView
+        android:id="@+id/favoriteIv"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        tools:src="@drawable/ic_favorite_border"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/default_padding"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_divider_height"
+        android:layout_marginTop="@dimen/default_padding"
+        android:background="@color/divider"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

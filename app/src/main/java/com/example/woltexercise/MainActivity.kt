@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var adapter: GenericAdapter<Results>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,18 +54,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showVenues(venues: Venues){
-        //TODO: Refresh the adapter here instead of making new one every time
         val places = venues.results
-        val adapter = object : GenericAdapter<Results>(places) {
-            override fun getLayoutId(position: Int, obj: Results): Int {
-                return R.layout.venue_list_item
+
+        if (::adapter.isInitialized){
+            adapter.setItems(places)
+        } else {
+            adapter = object : GenericAdapter<Results>(places) {
+                override fun getLayoutId(position: Int, obj: Results): Int {
+                    return R.layout.venue_list_item
+                }
+                override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+                    return VenuesViewHolder(view,
+                        onFavoriteClicked = { position ->
+                            adapter.getItem(position).favourite = !adapter.getItem(position).favourite
+                            adapter.notifyItemChanged(position)
+                        })
+                }
             }
-            override fun getViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
-                return VenuesViewHolder(view)
-            }
+            venuesRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            venuesRv.adapter = adapter
         }
-        venuesRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        venuesRv.adapter = adapter
     }
 
     private fun invokeLocationAction() {

@@ -14,7 +14,7 @@ data class Results (
     @SerializedName("currency") val currency : String,
     @SerializedName("description") val description : List<Description>,
     @SerializedName("short_description") val shortDescription : List<ShortDescription>,
-    @SerializedName("favourite") val favourite : Boolean,
+    @SerializedName("favourite") var favourite : Boolean,
     @SerializedName("id") val id : Id,
     @SerializedName("listimage") val listImage : String,
     @SerializedName("name") val name : List<Name>

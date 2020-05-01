@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.woltexercise.data.Results
 import com.squareup.picasso.Picasso
 
-class VenuesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
+class VenuesViewHolder(itemView: View,
+                       private val onFavoriteClicked: (Int) -> Unit): RecyclerView.ViewHolder(itemView),
     GenericAdapter.Binder<Results>  {
 
     private var venueIv = itemView.findViewById<ImageView>(R.id.venueIv)
+    private var favoriteIv = itemView.findViewById<ImageView>(R.id.favoriteIv)
     private var venueNameTv = itemView.findViewById<TextView>(R.id.venueNameTv)
     private var venueDescriptionTv = itemView.findViewById<TextView>(R.id.venueDescriptionTv)
 
@@ -19,6 +21,13 @@ class VenuesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView),
         //TODO: put check for array elements here
         venueNameTv.text = data.name[0].value
         venueDescriptionTv.text = data.shortDescription[0].value
+
+        favoriteIv.setOnClickListener { onFavoriteClicked(adapterPosition) }
+
+        if (data.favourite)
+            favoriteIv.setImageResource(R.drawable.ic_favorite)
+        else
+            favoriteIv.setImageResource(R.drawable.ic_favorite_border)
     }
 
 }
